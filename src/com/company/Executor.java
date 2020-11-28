@@ -11,7 +11,7 @@ import java.util.Scanner;
 /**
  * The class where most of the code is ran.
  *
- * @version 0.11
+ * @version 0.12
  * @since 2020-11-28
  */
 
@@ -28,6 +28,12 @@ Update 0.1.:
 Update 0.11.:
 - Added newChar
 
+Update 0.12.:
+- newChar updated, connected to DAO
+- added private PersonagemDAO personagemDAO;
+- Added exectueMe inside the constructor
+
+
  */
 
 public class Executor {
@@ -41,7 +47,6 @@ public class Executor {
         personagems = new ArrayList<>();
         personagemDAO = new PersonagemDAO();
     }
-
 
     /**
      * Main method, takes user input and reacts based on it
@@ -108,7 +113,7 @@ public class Executor {
         int mana = Integer.parseInt(scanner.nextLine());
 
         System.out.println("Your attack power?");
-        int atack = Integer.parseInt(scanner.nextLine());
+        int attack = Integer.parseInt(scanner.nextLine());
 
         System.out.println("Your magical attack?");
         int mag_attack = Integer.parseInt(scanner.nextLine());
@@ -131,6 +136,19 @@ public class Executor {
         System.out.println("Your level?");
         int level = Integer.parseInt(scanner.nextLine());
 
+        personagemDAO.create(new Personagem(
+                name,
+                race,
+                career,
+                mana,
+                attack,
+                mag_attack,
+                defense,
+                mag_defense,
+                velocity,
+                dext,
+                exp,
+                level));
     }
 
     private void Consult_all_characters(){
