@@ -8,7 +8,7 @@ import java.util.List;
 
 public class PersonagemDAO implements DAO<Personagem>,DAOFields{
     private Connection connection;
-    private String myDBConnectionString = "jdbc:sqlite:dados_tuned.db";
+    private String myDBConnectionString = "jdbc:sqlite:dados.db";
 
     public PersonagemDAO(){
         try{
