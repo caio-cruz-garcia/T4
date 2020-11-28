@@ -33,6 +33,11 @@ Update 0.12.:
 - added private PersonagemDAO personagemDAO;
 - Added exectueMe inside the constructor
 
+Update 0.13.:
+- Consult_all_characters created (caio)
+- Delete_a_character created (caio)
+- Update_a_character created (caio)
+- Documentation added
 
  */
 
@@ -90,7 +95,8 @@ public class Executor {
                 "1 - Create a new character\n" +
                 "2 - Change an existing character\n" +
                 "3 - Consult all characters\n" +
-                "4 - Delete a character\n");
+                "4 - Delete a character\n" +
+                "0 - Exit");
     }
 
     /**
@@ -151,12 +157,18 @@ public class Executor {
                 level));
     }
 
+    /**
+     * Method used to consult all characters inside the database
+     */
     private void Consult_all_characters(){
         personagems = personagemDAO.getALL();
         System.out.println("Personagens:");
         personagems.forEach(System.out::println);
     }
 
+    /**
+     * Method used to remove a character from the database
+     */
     private void Delete_a_character(){
         System.out.println("Nome do personagem:");
         String nome = scanner.next();
@@ -164,6 +176,9 @@ public class Executor {
         personagemDAO.delete(personagem);
     }
 
+    /**
+     * Method used to update a character
+     */
     private void Update_a_character(){
         personagems = personagemDAO.getALL();
         System.out.println("Nome do Personagem para Atualizar:");
