@@ -8,7 +8,7 @@ import java.util.Scanner;
 /**
  * The class where most of the code is ran.
  *
- * @version 0.1
+ * @version 0.11
  * @since 2020-11-28
  */
 
@@ -21,6 +21,9 @@ Update 0.:
 Update 0.1.:
 - Added vars
 - Added executeMe()
+
+Update 0.11.:
+- Added newChar
 
  */
 
@@ -67,6 +70,51 @@ public class Executor {
                 "2 - Change an existing character\n" +
                 "3 - Consult all characters\n" +
                 "4 - Delete a character\n");
+    }
+
+    /**
+     * Creates a new character/personagem
+     */
+    private void newChar(){
+        // Here we go
+        System.out.println("Welcome to the character creation screen. Hope you're ready!");
+
+        System.out.println("What shall be thy name?");
+        String name = scanner.nextLine();
+
+        System.out.println("What is your race?"); // Todo: Reject elves
+        String race = scanner.nextLine();
+
+        System.out.println("What is your class/career?");
+        String career = scanner.nextLine();
+
+        System.out.println("Your mana points?");
+        int mana = Integer.parseInt(scanner.nextLine());
+
+        System.out.println("Your attack power?");
+        int atack = Integer.parseInt(scanner.nextLine());
+
+        System.out.println("Your magical attack?");
+        int mag_attack = Integer.parseInt(scanner.nextLine());
+
+        System.out.println("Your defense points?");
+        int defense = Integer.parseInt(scanner.nextLine());
+
+        System.out.println("Your magical armour?");
+        int mag_defense = Integer.parseInt(scanner.nextLine());
+
+        System.out.println("Your total speed?");
+        int velocity = Integer.parseInt(scanner.nextLine());
+
+        System.out.println("Dexterity?");
+        int dext = Integer.parseInt(scanner.nextLine());
+
+        System.out.println("Your current exp?");
+        int exp = Integer.parseInt(scanner.nextLine());
+
+        System.out.println("Your level?");
+        int level = Integer.parseInt(scanner.nextLine());
+
     }
 
 }
