@@ -29,6 +29,10 @@ public class Personagem {
         this.nivel = nivel;
     }
 
+    public Personagem(String nome){
+        this(nome,null,null,0,0,0,0,0,0,0,0,0);
+    }
+
     @Override
     public String toString() {
         return "Personagem{" +
