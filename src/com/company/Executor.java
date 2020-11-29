@@ -11,7 +11,7 @@ import java.util.Scanner;
 /**
  * The class where most of the code is ran.
  *
- * @version 0.12
+ * @version 0.15
  * @since 2020-11-28
  */
 
@@ -44,6 +44,10 @@ Update 0.14.:
 - Added scannerAssistant, which verifies the user input and return if valid. Used for Update_a_character
 - Added scannerAssistantCreate, which verifies user input for create character
 - Updated newChar
+
+Update 0.15.:
+- Fixed error at Delete_a_character
+- Fixed error at Update_a_character
  */
 
 public class Executor {
@@ -151,7 +155,7 @@ public class Executor {
         int choice = Integer.parseInt(scanner.nextLine());
         if (choice != 0) {
             System.out.println("Removing...");
-            personagemDAO.delete(personagems.get(choice+1));
+            personagemDAO.delete(personagems.get(choice-1));
         }
         System.out.println("Returning to main screen...");
     }
@@ -173,7 +177,7 @@ public class Executor {
         if (choice != 0) {
             System.out.println("Bringing edit screen...");
             System.out.println("Press enter to maintain previous value");
-            Personagem updateme = personagems.get(choice+1);
+            Personagem updateme = personagems.get(choice-1);
 
             updateme.setNome(scannerAssistantUpdate("Name - " + updateme.getNome() + ". Update?",updateme.getNome()));
             updateme.setRaca(scannerAssistantUpdate("Race - " + updateme.getRaca() + ". Update?",updateme.getRaca()));
@@ -221,8 +225,10 @@ public class Executor {
         System.out.println(text);
         input = scanner.nextLine();
         if (input.equals("")){
+            System.out.println("Keeping previous value.: " + previous);
             return previous;
         } else {
+            System.out.println("Adding new value as.: " + input);
             return input;
         }
     }
