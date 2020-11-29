@@ -39,6 +39,11 @@ Update 0.13.:
 - Update_a_character created (caio)
 - Documentation added
 
+Update 0.14.:
+- Edited Delete_a_character.
+- Added scannerAssistant, which verifies the user input and return if valid. Used for Update_a_character
+- Added scannerAssistantCreate, which verifies user input for create character
+- Updated newChar
  */
 
 public class Executor {
@@ -105,56 +110,21 @@ public class Executor {
     private void newChar(){
         // Here we go
         System.out.println("Welcome to the character creation screen. Hope you're ready!");
+        Personagem createme = new Personagem(scannerAssistantCreate("What shall be thy name?"));
 
-        System.out.println("What shall be thy name?");
-        String name = scanner.nextLine();
+        createme.setRaca(scannerAssistantCreate("What is your race?")); // Todo: Reject elves
+        createme.setProfissao(scannerAssistantCreate("What is your class/career?"));
+        createme.setMana(Integer.parseInt(scannerAssistantCreate("Your mana points?")));
+        createme.setAtaque(Integer.parseInt(scannerAssistantCreate("Your attack power?")));
+        createme.setAtaque_magico(Integer.parseInt(scannerAssistantCreate("Your magical attack?")));
+        createme.setDefesa(Integer.parseInt(scannerAssistantCreate("Your defense points?")));
+        createme.setDefesa_magica(Integer.parseInt(scannerAssistantCreate("Your magical armour?")));
+        createme.setVelocidade(Integer.parseInt(scannerAssistantCreate("Your total speed?")));
+        createme.setDestreza(Integer.parseInt(scannerAssistantCreate("Dexterity?")));
+        createme.setExp(Integer.parseInt(scannerAssistantCreate("Your current exp?")));
+        createme.setNivel(Integer.parseInt(scannerAssistantCreate("Your level?")));
 
-        System.out.println("What is your race?"); // Todo: Reject elves
-        String race = scanner.nextLine();
-
-        System.out.println("What is your class/career?");
-        String career = scanner.nextLine();
-
-        System.out.println("Your mana points?");
-        int mana = Integer.parseInt(scanner.nextLine());
-
-        System.out.println("Your attack power?");
-        int attack = Integer.parseInt(scanner.nextLine());
-
-        System.out.println("Your magical attack?");
-        int mag_attack = Integer.parseInt(scanner.nextLine());
-
-        System.out.println("Your defense points?");
-        int defense = Integer.parseInt(scanner.nextLine());
-
-        System.out.println("Your magical armour?");
-        int mag_defense = Integer.parseInt(scanner.nextLine());
-
-        System.out.println("Your total speed?");
-        int velocity = Integer.parseInt(scanner.nextLine());
-
-        System.out.println("Dexterity?");
-        int dext = Integer.parseInt(scanner.nextLine());
-
-        System.out.println("Your current exp?");
-        int exp = Integer.parseInt(scanner.nextLine());
-
-        System.out.println("Your level?");
-        int level = Integer.parseInt(scanner.nextLine());
-
-        personagemDAO.create(new Personagem(
-                name,
-                race,
-                career,
-                mana,
-                attack,
-                mag_attack,
-                defense,
-                mag_defense,
-                velocity,
-                dext,
-                exp,
-                level));
+        personagemDAO.create(createme);
     }
 
     /**
@@ -170,58 +140,111 @@ public class Executor {
      * Method used to remove a character from the database
      */
     private void Delete_a_character(){
-        System.out.println("Nome do personagem:");
-        String nome = scanner.next();
-        Personagem personagem = new Personagem(nome);
-        personagemDAO.delete(personagem);
+        personagems = personagemDAO.getALL();
+        System.out.println("Personagems para deletar.:");
+        for (int i=0; i<personagems.size(); i++)
+        {
+            System.out.println((i+1) + " - " + personagems.get(i).getNome());
+        }
+        System.out.println("Favor escolher um para deletar.\n" +
+                "Ou escolha 0 para sair.");
+        int choice = Integer.parseInt(scanner.nextLine());
+        if (choice != 0) {
+            System.out.println("Removing...");
+            personagemDAO.delete(personagems.get(choice+1));
+        }
+        System.out.println("Returning to main screen...");
     }
 
     /**
      * Method used to update a character
      */
     private void Update_a_character(){
+
         personagems = personagemDAO.getALL();
-        System.out.println("Nome do Personagem para Atualizar:");
-        String nome = scanner.next();
-        Personagem produto = null;
+        System.out.println("Personagems.:");
+        for (int i=0; i<personagems.size(); i++)
+        {
+            System.out.println((i+1) + " - " + personagems.get(i).getNome());
+        }
+        System.out.println("Favor escolher um para atualizar.\n" +
+                "Ou escolha 0 para sair.");
+        int choice = Integer.parseInt(scanner.nextLine());
+        if (choice != 0) {
+            System.out.println("Bringing edit screen...");
+            System.out.println("Press enter to maintain previous value");
+            Personagem updateme = personagems.get(choice+1);
 
-        System.out.println("Welcome to the character creation screen. Hope you're ready!");
+            updateme.setNome(scannerAssistantUpdate("Name - " + updateme.getNome() + ". Update?",updateme.getNome()));
+            updateme.setRaca(scannerAssistantUpdate("Race - " + updateme.getRaca() + ". Update?",updateme.getRaca()));
+            updateme.setProfissao(scannerAssistantUpdate("Class/career - " + updateme.getProfissao() + ". Update?",updateme.getProfissao()));
 
-        System.out.println("What shall be thy name?");
-        String name = scanner.nextLine();
+            updateme.setMana(Integer.parseInt(scannerAssistantUpdate("Mana - " + updateme.getMana() + ". Update?",
+                    Integer.toString(updateme.getMana()))));
 
-        System.out.println("What is your race?"); // Todo: Reject elves
-        String race = scanner.nextLine();
+            updateme.setAtaque(Integer.parseInt(scannerAssistantUpdate("Attack - " + updateme.getAtaque() + ". Update?",
+                    Integer.toString(updateme.getAtaque()))));
 
-        System.out.println("What is your class/career?");
-        String career = scanner.nextLine();
+            updateme.setAtaque_magico(Integer.parseInt(scannerAssistantUpdate("Magic attack - " + updateme.getAtaque_magico() + ". Update?",
+                    Integer.toString(updateme.getAtaque_magico()))));
 
-        System.out.println("Your mana points?");
-        int mana = Integer.parseInt(scanner.nextLine());
+            updateme.setDefesa(Integer.parseInt(scannerAssistantUpdate("Defense - " + updateme.getDefesa() + ". Update?",
+                    Integer.toString(updateme.getDefesa()))));
 
-        System.out.println("Your attack power?");
-        int atack = Integer.parseInt(scanner.nextLine());
+            updateme.setDefesa_magica(Integer.parseInt(scannerAssistantUpdate("Magic defense - " + updateme.getAtaque() + ". Update?",
+                    Integer.toString(updateme.getDefesa_magica()))));
 
-        System.out.println("Your magical attack?");
-        int mag_attack = Integer.parseInt(scanner.nextLine());
+            updateme.setVelocidade(Integer.parseInt(scannerAssistantUpdate("Velocity - " + updateme.getVelocidade() + ". Update?",
+                    Integer.toString(updateme.getVelocidade()))));
 
-        System.out.println("Your defense points?");
-        int defense = Integer.parseInt(scanner.nextLine());
+            updateme.setDestreza(Integer.parseInt(scannerAssistantUpdate("Dexterity - " + updateme.getDestreza() + ". Update?",
+                    Integer.toString(updateme.getDestreza()))));
 
-        System.out.println("Your magical armour?");
-        int mag_defense = Integer.parseInt(scanner.nextLine());
+            updateme.setExp(Integer.parseInt(scannerAssistantUpdate("Experience - " + updateme.getExp() + ". Update?",
+                    Integer.toString(updateme.getExp()))));
 
-        System.out.println("Your total speed?");
-        int velocity = Integer.parseInt(scanner.nextLine());
+            updateme.setNivel(Integer.parseInt(scannerAssistantUpdate("Level - " + updateme.getNivel() + ". Update?",
+                    Integer.toString(updateme.getNivel()))));
 
-        System.out.println("Dexterity?");
-        int dext = Integer.parseInt(scanner.nextLine());
+            personagemDAO.update(updateme);
+        }
+    }
 
-        System.out.println("Your current exp?");
-        int exp = Integer.parseInt(scanner.nextLine());
+    /**
+     * Method used for Update_a_character. If user presses enter, skip this and move to the next.
+     * @param text The text asking the user for the input
+     * @param previous The previous value
+     * @return The new value
+     */
+    String scannerAssistantUpdate(String text, String previous){
+        String input;
+        System.out.println(text);
+        input = scanner.nextLine();
+        if (input.equals("")){
+            return previous;
+        } else {
+            return input;
+        }
+    }
 
-        System.out.println("Your level?");
-        int level = Integer.parseInt(scanner.nextLine());
+    /**
+     * Method used for Create. If user presses enter, ask again for input
+     * @param text The text asking the user for the input
+     * @return The new value
+     */
+    String scannerAssistantCreate(String text){
+        int exit = 0;
+        String input = new String();
+        while (exit == 0){
+            System.out.println(text);
+            input = scanner.nextLine();
+            if (input.equals("")){
+                System.out.println("Please input a real value.");
+            } else {
+                exit = 1;
+            }
+        }
+        return input;
     }
 
 }
