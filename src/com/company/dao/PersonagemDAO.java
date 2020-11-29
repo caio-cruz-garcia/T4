@@ -6,10 +6,16 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * class PersonagemDAO. Stores all DAO commands related to Personagem
+ */
 public class PersonagemDAO implements DAO<Personagem>,DAOFields{
     private Connection connection;
     private String myDBConnectionString = "jdbc:sqlite:dados.db";
 
+    /**
+     * Constructor for PersonagemDAO. Connects to SQL
+     */
     public PersonagemDAO(){
         try{
             connection = DriverManager.getConnection(myDBConnectionString);
@@ -19,6 +25,11 @@ public class PersonagemDAO implements DAO<Personagem>,DAOFields{
     }
 
 
+    /**
+     * method get
+     * @param condition Special condition for specific queries
+     * @return result
+     */
     @Override
     public List<Personagem> get(String condition) {
         List<Personagem> personagems = new ArrayList<>();
@@ -49,6 +60,10 @@ public class PersonagemDAO implements DAO<Personagem>,DAOFields{
         return personagems;
     }
 
+    /**
+     * method getALL
+     * @return all items from SQL
+     */
     @Override
     public List<Personagem> getALL() {
         List<Personagem> personagems = new ArrayList<>();
@@ -79,6 +94,10 @@ public class PersonagemDAO implements DAO<Personagem>,DAOFields{
         return personagems;
     }
 
+    /**
+     * method update
+     * @param personagem Takes a personagem to update in the table
+     */
     @Override
     public void update(Personagem personagem) {
         try{
@@ -104,6 +123,10 @@ public class PersonagemDAO implements DAO<Personagem>,DAOFields{
 
     }
 
+    /**
+     * method delete
+     * @param personagem Deletes a personagem
+     */
     @Override
     public void delete(Personagem personagem) {
         try{
@@ -116,6 +139,10 @@ public class PersonagemDAO implements DAO<Personagem>,DAOFields{
 
     }
 
+    /**
+     * method create
+     * @param personagem creates a new personagem entry at the sql database
+     */
     @Override
     public void create(Personagem personagem) {
         try{
@@ -140,31 +167,60 @@ public class PersonagemDAO implements DAO<Personagem>,DAOFields{
 
     }
 
+    /**
+     * method getTableName
+     * @return The name of the table
+     */
     @Override
     public String getTableName() {
         return "Personagem";
     }
 
+    /**
+     * method getDeleteString
+     * @param table name of table
+     * @return Delete query
+     */
     @Override
     public String getDeleteString(String table) {
         return "DELETE FROM "+ table +" WHERE nome = ?";
     }
 
+    /**
+     * method getUpdateString
+     * @param table name of table
+     * @return Update query
+     */
     @Override
     public String getUpdateString(String table) {
         return "UPDATE "+ table +" SET nome = ?, raca = ?, profissao = ?, mana = ?, ataque = ?, ataque_magico = ?, defesa = ?, defesa_magica = ?, velocidade = ?, destreza = ?, exp = ?, nivel = ? WHERE nome = ?;";
     }
 
+    /**
+     * method getInsertString
+     * @param table name of table
+     * @return Create query
+     */
     @Override
     public String getInsertString(String table) {
         return "INSERT INTO "+ table + " (nome, raca, profissao, mana, ataque, ataque_magico, defesa, defesa_magica, velocidade, destreza, exp, nivel) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     }
 
+    /**
+     * method getSelectAllString
+     * @param table name of table
+     * @return Return all data query
+     */
     @Override
     public String getSelectAllString(String table) {
         return "SELECT * FROM " + table;
     }
 
+    /**
+     * method getSelectedConditionalString
+     * @param table name of table
+     * @return return specific search query
+     */
     @Override
     public String getSelectConditionalString(String table) {
         return "SELECT * FROM " + table + " WHERE ";
