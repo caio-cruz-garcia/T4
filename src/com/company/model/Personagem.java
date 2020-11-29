@@ -98,4 +98,52 @@ public class Personagem {
     public int getNivel() {
         return nivel;
     }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setRaca(String raca) {
+        this.raca = raca;
+    }
+
+    public void setProfissao(String profissao) {
+        this.profissao = profissao;
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
+    }
+
+    public void setAtaque(int ataque) {
+        this.ataque = ataque;
+    }
+
+    public void setAtaque_magico(int ataque_magico) {
+        this.ataque_magico = ataque_magico;
+    }
+
+    public void setDefesa(int defesa) {
+        this.defesa = defesa;
+    }
+
+    public void setDefesa_magica(int defesa_magica) {
+        this.defesa_magica = defesa_magica;
+    }
+
+    public void setVelocidade(int velocidade) {
+        this.velocidade = velocidade;
+    }
+
+    public void setDestreza(int destreza) {
+        this.destreza = destreza;
+    }
+
+    public void setExp(int exp) {
+        this.exp = exp;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
 }
