@@ -95,6 +95,7 @@ public class PersonagemDAO implements DAO<Personagem>,DAOFields{
             preparedStatement.setInt(10, personagem.getDestreza());
             preparedStatement.setInt(11, personagem.getExp());
             preparedStatement.setInt(12, personagem.getNivel());
+            preparedStatement.setString(13, personagem.getNome());
             //Executa o PreparedStatement
             int retorno = preparedStatement.executeUpdate();
         }catch (Exception e){
