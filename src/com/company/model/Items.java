@@ -3,7 +3,7 @@ package com.company.model;
 /**
  * Class items, made to represent an Item that a Character (Personagem) may have.
  * @version 0.1
- * @since 2020-11-28
+ * @since 2020-11-29
  */
 /*
 Update 0.:
