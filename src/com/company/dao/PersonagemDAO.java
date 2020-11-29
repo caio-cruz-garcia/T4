@@ -147,7 +147,7 @@ public class PersonagemDAO implements DAO<Personagem>,DAOFields{
 
     @Override
     public String getDeleteString(String table) {
-        return "DELETE FROM "+ table +" WHERE name = ?";
+        return "DELETE FROM "+ table +" WHERE nome = ?";
     }
 
     @Override
