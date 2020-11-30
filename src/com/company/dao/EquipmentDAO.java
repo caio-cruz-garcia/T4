@@ -2,16 +2,20 @@ package com.company.dao;
 
 import com.company.model.Equipment;
 import com.company.model.Items;
+import com.company.model.Personagem;
+import com.company.parsers.EquipmentParser;
+import com.company.parsers.EquipmentParserList;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
 /**
  * class EquipmentDAO. Stores all DAO commands related to Equipment
  *
- * @version 0.11
+ * @version 0.12
  * @since 2020-11-30
  */
 
@@ -34,8 +38,18 @@ Update 0.11.:
 - Updated methods getInsertString
 - Updated methods getSelectAllString
 - Updated methods getSelectConditionalString
+
+Update 0.12.:
+- Changed how the code is implemented.
+    |- Considering that the Equipment is an array located inside the personagem class, we can connect both and use the
+    personagem name as primary key.
+
+- Updated method create
+- Updated method update
+- Updated method delete
+
  */
-public class EquipmentDAO implements DAO<Equipment>,DAOFields{
+public class EquipmentDAO implements DAO<Personagem>,DAOFields{
     private Connection connection;
     private String myDBConnectionString = "jdbc:sqlite:dados-Items-Test.db";
 
@@ -56,7 +70,7 @@ public class EquipmentDAO implements DAO<Equipment>,DAOFields{
      * @return result
      */
     @Override
-    public List<Equipment> get(String condition) {
+    public List<Personagem> get(String condition) {
         return null;
     }
 
@@ -65,34 +79,59 @@ public class EquipmentDAO implements DAO<Equipment>,DAOFields{
      * @return all items from SQL
      */
     @Override
-    public List<Equipment> getALL() {
+    public List<Personagem> getALL() {
         return null;
     }
 
     /**
      * method update
-     * @param equipment Takes a equipment to update in the table
+     * @param personagem Takes a equipment to update in the table
      */
     @Override
-    public void update(Equipment equipment) {
+    public void update(Personagem personagem) {
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(getUpdateString(getTableName()));
+            preparedStatement.setString(1, personagem.getNome());
+            preparedStatement.setString(2, String.valueOf(EquipmentParserList.toJson(personagem.getEquipmentList())));
+            preparedStatement.setString(3, personagem.getNome());
 
+            //Executa o PreparedStatement
+            int retorno = preparedStatement.executeUpdate();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
      * method delete
-     * @param equipment Deletes an equipment
+     * @param personagem Deletes an equipment list
      */
     @Override
-    public void delete(Equipment equipment) {
-
+    public void delete(Personagem personagem) {
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(getDeleteString(getTableName()));
+            preparedStatement.setString(1, personagem.getNome());
+            preparedStatement.executeUpdate();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
      * method create
-     * @param equipment creates a new equipment entry at the sql database
+     * @param personagem creates a new equipment entry at the sql database
      */
     @Override
-    public void create(Equipment equipment) {
+    public void create(Personagem personagem) {
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(getInsertString(getTableName()));
+            preparedStatement.setString(1, personagem.getNome());
+            preparedStatement.setString(2, String.valueOf(EquipmentParserList.toJson(personagem.getEquipmentList())));
+            //Executa o PreparedStatement
+            int retorno = preparedStatement.executeUpdate();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 
