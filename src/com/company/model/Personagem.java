@@ -1,5 +1,7 @@
 package com.company.model;
 
+import java.util.List;
+
 /**
  * Class model for Personagem.
  * Represents what a character may be.
@@ -17,6 +19,10 @@ public class Personagem {
     private int destreza;
     private int exp;
     private int nivel;
+    // Bonus
+    private List<Equipment> equipmentList;
+    private List<Items> itemsList;
+
 
     /**
      * First constructor for Personagem.
@@ -268,5 +274,37 @@ public class Personagem {
      */
     public void setNivel(int nivel) {
         this.nivel = nivel;
+    }
+
+    /**
+     * method getEquipmentList
+     * @return list of equipment
+     */
+    public List<Equipment> getEquipmentList() {
+        return equipmentList;
+    }
+
+    /**
+     * method setEquipmentList
+     * @param equipmentList set new list of equipment
+     */
+    public void setEquipmentList(List<Equipment> equipmentList) {
+        this.equipmentList = equipmentList;
+    }
+
+    /**
+     * method getItemsList
+     * @return list of items
+     */
+    public List<Items> getItemsList() {
+        return itemsList;
+    }
+
+    /**
+     * method setItemsList
+     * @param itemsList set new list of items
+     */
+    public void setItemsList(List<Items> itemsList) {
+        this.itemsList = itemsList;
     }
 }
