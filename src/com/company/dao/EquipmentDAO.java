@@ -5,11 +5,11 @@ import com.company.model.Items;
 import com.company.model.Personagem;
 import com.company.parsers.EquipmentParser;
 import com.company.parsers.EquipmentParserList;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,6 +48,9 @@ Update 0.12.:
 - Updated method update
 - Updated method delete
 
+Update 0.13.:
+- Updated method getALL
+- Updated method get
  */
 public class EquipmentDAO implements DAO<Personagem>,DAOFields{
     private Connection connection;
@@ -71,7 +74,23 @@ public class EquipmentDAO implements DAO<Personagem>,DAOFields{
      */
     @Override
     public List<Personagem> get(String condition) {
-        return null;
+        List<Personagem> entries = new ArrayList<>();
+        try{
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(getSelectConditionalString(getTableName()) + condition);
+            while(result.next()){
+                Personagem personagem = new Personagem(
+                        result.getString("id")
+                );
+                JSONArray jsonArray = new JSONArray((result.getString("array")));
+                personagem.setEquipmentList(EquipmentParserList.fromJson(jsonArray));
+                entries.add(personagem);
+            }
+            result.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return entries;
     }
 
     /**
@@ -80,7 +99,23 @@ public class EquipmentDAO implements DAO<Personagem>,DAOFields{
      */
     @Override
     public List<Personagem> getALL() {
-        return null;
+        List<Personagem> entries = new ArrayList<>();
+        try{
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(getSelectAllString(getTableName()));
+            while(result.next()){
+                Personagem personagem = new Personagem(
+                        result.getString("id")
+                );
+                JSONArray jsonArray = new JSONArray((result.getString("array")));
+                personagem.setEquipmentList(EquipmentParserList.fromJson(jsonArray));
+                entries.add(personagem);
+            }
+            result.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return entries;
     }
 
     /**
