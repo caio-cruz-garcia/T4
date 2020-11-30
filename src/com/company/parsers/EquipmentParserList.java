@@ -23,11 +23,14 @@ Update 0.:
 Update 0.1.:
 - Added toJson (Template)
 - Added fromJson (Template)
+
+Update 0.11.:
+- Fixed javadocs for both methods
  */
 public class EquipmentParserList {
 
     /**
-     * Takes a list pokemoncardlist to convert into json
+     * Takes a list equipmentList to convert into json
      * @param equipmentList equipmentList
      * @return Json
      */
@@ -40,9 +43,9 @@ public class EquipmentParserList {
     }
 
     /**
-     * Takes a json array and convert it into a pokemoncardlist
-     * @param json Takes a JSONArray to convert into cardList
-     * @return PokemonCardList
+     * Takes a json array and convert it into a equipmentList
+     * @param json Takes a JSONArray to convert into equipmentList
+     * @return equipmentList
      */
     public static List<Equipment> fromJson(JSONArray json){
         List<Equipment> equipmentList = new ArrayList<>();
