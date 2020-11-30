@@ -24,7 +24,7 @@ Update 0.1.:
  */
 public class ItemsDAO implements DAO<Items>,DAOFields{
     private Connection connection;
-    private String myDBConnectionString = "jdbc:sqlite:dados-Items.db";
+    private String myDBConnectionString = "jdbc:sqlite:dados-Items-Test.db";
 
     /**
      * Constructor for ItemsDAO. Connects to SQL
